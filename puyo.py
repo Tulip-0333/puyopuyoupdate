@@ -2,15 +2,15 @@ import copy
 import random
 
 
-DEBUG = False
+DEBUG = True
 
 class Puyopuyo(object):
     WIDTH = 6
     HEIGHT = 13
 
     def __init__(self, string=None):
-        self.puyos = [[" " for x in xrange(self.WIDTH)] for y in xrange(self.HEIGHT)]
-        self.pre_puyos = [[" " for x in xrange(self.WIDTH)] for y in xrange(self.HEIGHT)]
+        self.puyos = [[" " for x in range(self.WIDTH)] for y in range(self.HEIGHT)]
+        self.pre_puyos = [[" " for x in range(self.WIDTH)] for y in range(self.HEIGHT)]
         self.rensa = 0
         self.falling = None
 
@@ -52,8 +52,8 @@ class Puyopuyo(object):
         prepuyos = None
         while self.puyos != prepuyos:
             prepuyos = copy.deepcopy(self.puyos)
-            for col in xrange(12, 0, -1):
-                for row in xrange(6):
+            for col in range(12, 0, -1):
+                for row in range(6):
                     if self.puyos[col][row] == ' ':
                         self.puyos[col][row] = self.puyos[col-1][row]
                         self.puyos[col-1][row] = ' '
@@ -73,12 +73,12 @@ class Puyopuyo(object):
             if DEBUG:
                 for horizontal in self.puyos:
                     string += ''.join(horizontal) + '\n'
-                print string, '++++++++++++++++++++++++++'
+                print(string, '++++++++++++++++++++++++++')
 
             self.fill()
             if self.puyos == self.pre_puyos:
-                for col in xrange(self.HEIGHT):
-                    for row in xrange(self.WIDTH):
+                for col in range(self.HEIGHT):
+                    for row in range(self.WIDTH):
                         if (col, row) in puyo_to_remove:
                             continue
                         color = self.puyos[col][row]
@@ -92,7 +92,7 @@ class Puyopuyo(object):
 
             if len(puyo_to_remove):
                 self.rensa += 1
-                print self.rensa
+                print(self.rensa)
                 self.remove_puyo(puyo_to_remove)
 
             if self.puyos == self.pre_puyos:
@@ -143,10 +143,10 @@ GRYGYR"""
 
 def main():
     puyopuyo1 = Puyopuyo(F)
-    print "PRESS ENTER KEY"
+    print("PRESS ENTER KEY")
     while puyopuyo1.falling is None:
         puyopuyo1.update()
-        i = raw_input()
+        i = puyopuyo1
 
 if __name__ == '__main__':
     DEBUG = True
